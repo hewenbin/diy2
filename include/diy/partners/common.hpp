@@ -31,6 +31,12 @@ struct RegularPartners
                 RegularPartners(const Decomposer_& decomposer, int k, bool contiguous = true):
                   divisions_(decomposer.divisions),
                   contiguous_(contiguous)                       { factor(k, divisions_, kvs_); fill_steps(); }
+
+                RegularPartners(const DivisionVector&   divs,
+                                int k, bool contiguous = true):
+                  divisions_(divs),
+                  contiguous_(contiguous)                       { factor(k, divisions_, kvs_); fill_steps(); }
+
                 RegularPartners(const DivisionVector&   divs,
                                 const KVSVector&        kvs,
                                 bool  contiguous = true):
