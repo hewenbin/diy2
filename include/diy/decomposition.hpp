@@ -152,6 +152,7 @@ namespace detail
     CoordinateVector  ghosts;
     DivisionsVector   divisions;
 
+    std::vector<Bounds> gcores;
   };
 
   /**
@@ -403,6 +404,17 @@ decompose(int rank, const Assigner& assigner, const Creator& create)
     }
 
     create(gid, core, bounds, domain, link);
+  }
+
+  for (int i = 0; i < nblocks; ++i)
+  {
+    DivisionsVector coords;
+    gid_to_coords(i, coords);
+
+    Bounds core;
+    fill_bounds(core, coords);
+
+    gcores.push_back(core);
   }
 }
 
