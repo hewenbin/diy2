@@ -1041,21 +1041,25 @@ show_incoming_records() const
 {
   for (IncomingQueuesMap::const_iterator it = incoming_.begin(); it != incoming_.end(); ++it)
   {
+    int totalbytes_received = 0;
     const IncomingQueuesRecords& in_qrs = it->second;
     for (InQueueRecords::const_iterator cur = in_qrs.records.begin(); cur != in_qrs.records.end(); ++cur)
     {
       const QueueRecord& qr = cur->second;
-      fprintf(stderr, "%d <- %d: (size,external) = (%lu,%d)\n",
-                      it->first, cur->first,
-                      qr.size,
-                      qr.external);
+      // fprintf(stderr, "%d <- %d: (size,external) = (%lu,%d)\n",
+      //                 it->first, cur->first,
+      //                 qr.size,
+      //                 qr.external);
+      totalbytes_received += qr.size;
     }
     for (IncomingQueues::const_iterator cur = in_qrs.queues.begin(); cur != in_qrs.queues.end(); ++cur)
     {
-      fprintf(stderr, "%d <- %d: queue.size() = %lu\n",
-                      it->first, cur->first,
-                      const_cast<IncomingQueuesRecords&>(in_qrs).queues[cur->first].size());
+      // fprintf(stderr, "%d <- %d: queue.size() = %lu\n",
+      //                 it->first, cur->first,
+      //                 const_cast<IncomingQueuesRecords&>(in_qrs).queues[cur->first].size());
       }
+    // fprintf(stderr, "%d total bytes received %d\n", it->first, totalbytes_received);
+    fprintf(stderr, "%d\n", totalbytes_received);
   }
 }
 
