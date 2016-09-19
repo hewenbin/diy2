@@ -193,7 +193,7 @@ factor(int k, int tot_b, std::vector<int>& kv)
         if (rem % j == 0)
         {
           kv.push_back(j);
-          rem /= k;
+          rem /= j;
           break;
         }
       }
