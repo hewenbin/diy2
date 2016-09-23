@@ -27,6 +27,11 @@ struct RegularSwapPartners: public RegularPartners
                     ):
                     Parent(decomposer, k, contiguous)         {}
                 RegularSwapPartners(const DivisionVector&   divs, //!< explicit division vector
+                                    int k,                        //!< target k value
+                                    bool  contiguous = true       //!< distance halving (true) or doubling (false)
+                    ):
+                    Parent(divs, k, contiguous)               {}
+                RegularSwapPartners(const DivisionVector&   divs, //!< explicit division vector
                                     const KVSVector&        kvs,  //!< explicit k vector
                                     bool  contiguous = true       //!< distance halving (true) or doubling (false)
                     ):
