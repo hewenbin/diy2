@@ -179,30 +179,50 @@ factor(int k, int tot_b, std::vector<int>& kv)
 
   while (rem > 1)
   {
-    // remainder is divisible by k
-    if (rem % k == 0)
-    {
-      kv.push_back(k);
-      rem /= k;
-    }
-    // if not, start at k and linearly look for smaller factors down to 2
-    else
-    {
-      for (j = k - 1; j > 1; j--)
+    // ******** origin version ********
+    // // remainder is divisible by k
+    // if (rem % k == 0)
+    // {
+    //   kv.push_back(k);
+    //   rem /= k;
+    // }
+    // // if not, start at k and linearly look for smaller factors down to 2
+    // else
+    // {
+    //   for (j = k - 1; j > 1; j--)
+    //   {
+    //     if (rem % j == 0)
+    //     {
+    //       kv.push_back(j);
+    //       rem /= j;
+    //       break;
+    //     }
+    //   }
+    //   if (j == 1)
+    //   {
+    //     kv.push_back(rem);
+    //     rem = 1;
+    //   }
+    // } // else
+    // ******** origin version ********
+
+    // for partial reduction
+    if (k != 0) {
+      kv.push_back(rem);
+      rem /= rem;
+    } else {
+      int klist[] = {2, 3, 5, 7};
+      for (j = k; j < 4; j++)
       {
-        if (rem % j == 0)
+        if (rem % klist[j] == 0)
         {
-          kv.push_back(j);
-          rem /= j;
+          kv.push_back(klist[j]);
+          rem /= klist[j];
           break;
         }
       }
-      if (j == 1)
-      {
-        kv.push_back(rem);
-        rem = 1;
-      }
-    } // else
+    }
+
   } // while
 }
 
