@@ -43,7 +43,9 @@ namespace diy
                                 T&              x,                                      //!< data (eg. STL vector)
                                 void (*load)(BinaryBuffer&, T&) = &::diy::load<T>       //!< optional serialization function
                                ) const
-    { IncomingQueues& in  = *incoming_; load(in[from], x); }
+    { IncomingQueues& in  = *incoming_;
+      std::map<int, MemoryBuffer>::iterator it = in.find(from);
+      if (it != in.end()) load(it->second, x); }
 
     //! Dequeue an array of data whose size is given explicitly by the user.
     //! In this case, the user needs to allocate the receive buffer prior to calling dequeue.
